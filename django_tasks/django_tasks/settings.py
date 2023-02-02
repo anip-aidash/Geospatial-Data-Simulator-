@@ -25,12 +25,16 @@ SECRET_KEY = 'django-insecure-8tstef(=g^bsyy(jdu88-y9(45vm3-#%6aojrkghp=%@6vtfxg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
 INSTALLED_APPS = [
+    'aqi',
     'hello',
+    'corsheaders',
+    'data_processing',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -48,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'django_tasks.urls'
@@ -120,12 +125,3 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# Connecting to Kinetica
-options = gpudb.GPUdb.Options()
-options.username = "admin"
-options.password = ""
-
-DATABASE = gpudb.GPUdb(
-    host=["http://localhost:9191"],
-    options=options
-)
